@@ -69,7 +69,7 @@ export const styles = StyleSheet.create({
     width: '80%',
     flexDirection: 'row',
     borderWidth: 1,
-    borderColor: 'primary',
+    borderColor: colors.Secondary,
     marginTop: 20,
     height: 60,
     borderRadius: 100,
@@ -84,9 +84,11 @@ export const styles = StyleSheet.create({
     color: colors.white,
     fontSize: 18,
     fontFamily: fonts.SemiBold,
+    fontWeight: 'bold',
   },
   signupButtonText: {
     fontSize: 18,
     fontFamily: fonts.SemiBold,
+    fontWeight: 'bold',
   },
 });
