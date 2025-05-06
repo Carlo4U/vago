@@ -1,29 +1,46 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, LayoutAnimation, Platform, UIManager } from 'react-native'
 import React from 'react'
 import { Ionicons } from '@expo/vector-icons'
-import { styles } from '../styles/login.styles'
-import { colors } from '../src/utils/colors'
+import { styles } from '../../styles/login.styles'
+import { colors } from '../../../src/utils/colors'
 import { Image } from 'react-native'
-import { router, useNavigation } from 'expo-router'
+import { router, useNavigation, useRouter } from 'expo-router'
 import { useRoute } from '@react-navigation/native'
+import { useState, useEffect } from 'react';
+
+// Enable LayoutAnimation for Android
+if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
+
 export const login = () => {
     const navigation = useNavigation();
+    const route = useRouter();
     const [secureEntry, setSecureEntery] = React.useState(true);
-    const handleGoBack = () => {
-        navigation.goBack();
+    const [activeTab, setActiveTab] = useState('login');
+    
+    useEffect(() => {
+      // Set initial tab to login since we're on login screen
+      setActiveTab('login');
+    }, []);
+
+    const handleLogin = () => {
+      // Configure animation before state change
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+      setActiveTab('login');
+      router.push("/screens/auth/login");
     };
+    
     const handleSignup = () => {
-        router.push("signup" as any);
+      // Configure animation before state change
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+      setActiveTab('signup');
+      router.push("/screens/auth/signup");
     };
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.backButtonWrapper} onPress={handleGoBack}>
-        <Ionicons
-          name={"arrow-back-outline"}
-          size={20}
-          color={colors.white}
-        />
-      </TouchableOpacity>
+      
       <View style={styles.textcontainer}>
         <Text style={styles.headingText}>Hey,</Text>
         <Text style={styles.headingText}>Welcome</Text>
@@ -71,7 +88,7 @@ export const login = () => {
 
         <TouchableOpacity style={styles.loginnButtonWrapper}>
           <Image
-            source={require('../assets/images/google-logo.png')}
+            source={require('../../assets/images/google-logo.png')}
             style={styles.googleImage}
           />
           <Text style={styles.googleText}>Google</Text>
@@ -79,10 +96,40 @@ export const login = () => {
 
         <View style={styles.footerTextContainer}>
           <Text style={styles.accountText}>Don't have an account?</Text>
-          <TouchableOpacity onPress={handleSignup}>
+          <TouchableOpacity>
           <Text style={styles.signupText}>Sign Up</Text>
           </TouchableOpacity>
         </View>
+      </View>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={[
+            styles.authButtonWrapper,
+            { backgroundColor: activeTab === 'login' ? colors.primary : 'transparent' },
+          ]}
+          onPress={handleLogin}
+        >
+          <Text style={[
+            styles.loginButtonText,
+            { color: activeTab === 'login' ? colors.white : colors.primary }
+          ]}>
+            Login
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[
+            styles.authButtonWrapper,
+            { backgroundColor: activeTab === 'signup' ? colors.primary : 'transparent' }
+          ]}
+          onPress={handleSignup}
+        >
+          <Text style={[
+            styles.signupButtonText,
+            { color: activeTab === 'signup' ? colors.white : colors.primary }
+          ]}>
+            Sign-Up
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   )

@@ -1,34 +1,46 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, LayoutAnimation, Platform, UIManager } from 'react-native'
 import React from 'react'
 import { Ionicons } from '@expo/vector-icons'
-import { styles } from '../styles/login.styles'
-import { colors } from '../src/utils/colors'
+import { styles } from '../../styles/login.styles'
+import { colors } from '../../../src/utils/colors'
 import { Image } from 'react-native'
 import { router, useNavigation } from 'expo-router'
 import { useRoute } from '@react-navigation/native'
+import { useState, useEffect } from 'react';
 
+// Enable LayoutAnimation for Android
+if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
 
 export const signup = () => {
 
     const navigation = useNavigation();
     const [secureEntry, setSecureEntery] = React.useState(true);
-    const handleGoBack = () => {
-        navigation.goBack();
-    };
+    const [activeTab, setActiveTab] = useState('signup');
+
+    useEffect(() => {
+      // Set initial tab to signup since we're on signup screen
+      setActiveTab('signup');
+    }, []);
 
     const handleLogin = () => {
-        router.push("login" as any);
+      // Configure animation before state change
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+      setActiveTab('login');
+      router.push("/screens/auth/login");
+    };
+    
+    const handleSignup = () => {
+      // Configure animation before state change
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+      setActiveTab('signup');
+      router.push("/screens/auth/signup");
     };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.backButtonWrapper} onPress={handleGoBack}>
-        <Ionicons
-          name={"arrow-back-outline"}
-          size={20}
-          color={colors.white}
-        />
-      </TouchableOpacity>
+      
       <View style={styles.textcontainer}>
         <Text style={styles.headingText}>Let’s get</Text>
         <Text style={styles.headingText}>started</Text>
@@ -85,22 +97,43 @@ export const signup = () => {
           <Text style={styles.loginText}>Signup</Text>
         </TouchableOpacity>
 
-        <Text style={styles.continueText}>or continue with</Text>
-
-        <TouchableOpacity style={styles.loginnButtonWrapper}>
-          <Image
-            source={require('../assets/images/google-logo.png')}
-            style={styles.googleImage}
-          />
-          <Text style={styles.googleText}>Google</Text>
-        </TouchableOpacity>
 
         <View style={styles.footerTextContainer}>
           <Text style={styles.accountText}>Already have an account?</Text>
-          <TouchableOpacity onPress={handleLogin}>
+          <TouchableOpacity>
           <Text style={styles.signupText}>Login</Text>
           </TouchableOpacity>
         </View>
+      </View>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={[
+            styles.authButtonWrapper,
+            { backgroundColor: activeTab === 'login' ? colors.primary : 'transparent' },
+          ]}
+          onPress={handleLogin}
+        >
+          <Text style={[
+            styles.loginButtonText,
+            { color: activeTab === 'login' ? colors.white : colors.primary }
+          ]}>
+            Login
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[
+            styles.authButtonWrapper,
+            { backgroundColor: activeTab === 'signup' ? colors.primary : 'transparent' }
+          ]}
+          onPress={handleSignup}
+        >
+          <Text style={[
+            styles.signupButtonText,
+            { color: activeTab === 'signup' ? colors.white : colors.primary }
+          ]}>
+            Sign-Up
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   )

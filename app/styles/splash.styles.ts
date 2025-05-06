@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { fonts } from '../src/utils/fonts';
-import { colors } from '../src/utils/colors';
+import { fonts } from '../../src/utils/fonts';
+import { colors } from '../../src/utils/colors';
 
 const { width, height } = Dimensions.get('window');
 
@@ -65,6 +65,15 @@ export const styles = StyleSheet.create({
     lineHeight: 20,
     marginVertical: 20,
   },
+  subtitleText2: {
+    fontSize: 15,
+    color: '#333',
+    paddingHorizontal: 20,
+    fontFamily: fonts.Bold,
+    marginTop: 5,
+    lineHeight: 20,
+    marginVertical: 20,
+  },
   buttonContainer: {
     width: '80%',
     flexDirection: 'row',
@@ -77,7 +86,7 @@ export const styles = StyleSheet.create({
   loginButtonWrapper:{
     justifyContent: 'center',
     alignItems: 'center',
-    width: '50%',
+    width: '100%',
     borderRadius: 98,
   },
   loginButtonText: {

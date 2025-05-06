@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { fonts } from '../src/utils/fonts';
-import { colors } from '../src/utils/colors';
+import { fonts } from '../../src/utils/fonts';
+import { colors } from '../../src/utils/colors';
 import { Ionicons } from '@expo/vector-icons'
 const { width, height } = Dimensions.get('window');
 
@@ -63,7 +63,7 @@ export const styles = StyleSheet.create({
         fontWeight: 'light',
     },
     forgotPasswordText: {
-        textAlign: 'right',
+        textAlign: 'center',
         color: colors.primary,
         fontFamily: fonts.SemiBold,
         fontWeight: 'bold',
@@ -129,5 +129,39 @@ export const styles = StyleSheet.create({
         fontFamily: fonts.Bold,
         fontWeight: 'bold',
         fontSize: 15,
-    }
+    },
+    buttonContainer: {
+        width: '100%',
+        flexDirection: 'row',
+        borderWidth: 1,
+        borderColor: colors.Secondary,
+        marginTop: 20,
+        height: 60,
+        borderRadius: 100,
+        justifyContent: 'center',
+        alignSelf: 'center',
+        marginBottom: 20,
+        overflow: 'hidden', // This ensures the animation stays within the container
+        position: 'relative', // Add position relative for proper child positioning
+    },
+    authButtonWrapper: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '50%',
+        height: '100%', // Ensure full height
+        borderRadius: 0, // Remove individual border radius
+        position: 'relative', // Ensure proper positioning
+        zIndex: 1, // Ensure text is above background
+    },
+    loginButtonText: {
+        color: colors.white,
+        fontSize: 18,
+        fontFamily: fonts.SemiBold,
+        fontWeight: 'bold',
+    },
+    signupButtonText: {
+        fontSize: 18,
+        fontFamily: fonts.SemiBold,
+        fontWeight: 'bold',
+    },
 });

@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { fonts } from '../src/utils/fonts';
-import { colors } from '../src/utils/colors';
+import { fonts } from '../../src/utils/fonts';
+import { colors } from '../../src/utils/colors';
 import { Ionicons } from '@expo/vector-icons'
 const { width, height } = Dimensions.get('window');
 
@@ -129,5 +129,34 @@ export const styles = StyleSheet.create({
         fontFamily: fonts.Bold,
         fontWeight: 'bold',
         fontSize: 15,
-    }
+    }, 
+    buttonContainer: {
+            width: '80%',
+            flexDirection: 'row',
+            borderWidth: 1,
+            borderColor: colors.Secondary,
+            marginTop: 20,
+            height: 60,
+            borderRadius: 100,
+            justifyContent: 'center',
+            alignSelf: 'center',
+            marginBottom: 20,
+        },
+          lloginButtonWrapper:{
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '50%',
+            borderRadius: 98,
+          },
+          loginButtonText: {
+            color: colors.white,
+            fontSize: 18,
+            fontFamily: fonts.SemiBold,
+            fontWeight: 'bold',
+          },
+          signupButtonText: {
+            fontSize: 18,
+            fontFamily: fonts.SemiBold,
+            fontWeight: 'bold',
+          },
 });
